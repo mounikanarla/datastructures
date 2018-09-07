@@ -1,0 +1,1 @@
+javascript is used for both frontend and backend 5
