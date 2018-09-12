@@ -1,0 +1,35 @@
+{
+    "rice" :[{
+               "Ricename"   : "IndianRice",
+               "weight"     :  50,
+               "price" :  100
+             },
+             {
+                "Ricename"   : "Basmati",
+                "weight"     :  100,
+                "price" :  200
+             }          
+            ],
+    "wheat" :[{
+                "wheatname"   : "aashirvad",
+                "weight"      :  50,
+                "price"  :  40
+              },
+              {
+                "wheatname"   : "pilsbury",
+                "weight"      :  100,
+                "price"  :  80
+              } 
+             ],
+    "pulses" :[{
+                 "pulsename"   : "Greengram",
+                 "weight"      :  50,
+                 "price"  :  120
+               },
+               {
+                "pulsename"   : "Redgram",
+                "weight"      :  50,
+                "price"  :  180
+               } 
+              ]
+}

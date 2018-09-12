@@ -1,0 +1,18 @@
+{
+    "stock" :[{
+               "stockname"        : "Reliance",
+               "no_of_shares"     :  100,
+               "shareprice"       :  1000
+             },
+             {
+                "stockname"       : "infosys",
+                "no_of_shares"    :  200,
+                "shareprice"      :  3000
+             }, 
+             {
+                "stockname"       : "prestige",
+                "no_of_shares"    :  1000,
+                "shareprice"      :  200
+             }                   
+            ]
+}
