@@ -1,258 +1,239 @@
-//including the dequeue file in mainutility
-var queue=require('../../../Utility/utility2');
-var list=require('../../../Utility/utility');
-//creating the new object queue
-var queue = new queue();
-var list=new list();
-module.exports={
 
-   inventory : function(obj)
-  {
-      // converting every inventory value from string to object 
-      var rice=obj.rice;
-      var wheat=obj.wheat;
-      var pulses=obj.pulses;
-      //for every index value of rice loop will execute 
-      for(var key in rice)
-      {
-         console.log("\n");
-         console.log(rice[key]);
-         //prints the total price of the rice 
-         console.log("The total price of "+ rice[key].Ricename+ " is "+rice[key].weight*rice[key].price);
-      }
-      //for every index value of wheat loop will execute
-      for(var key in wheat)
-      {
-         console.log("\n");
-         console.log(wheat[key]);
-         //prints the total price of the wheat
-         console.log("The total price of "+ wheat[key].wheatname+ " is "+wheat[key].weight*wheat[key].price);
-      }
-      //for every index value of pulses loop will execute
-      for(var key in pulses)
-      {
-         console.log("\n");
-         console.log(pulses[key]);
-         //prints the total price of the wheat
-         console.log("The total price of "+ pulses[key].pulsename+ " is "+pulses[key].weight*pulses[key].price);
-      }
-    },
-
-    //repalcing the text file by name,fullname,mobileno and printing in the text file
-    regExp : function(name,fullname,number,pre_Date)
-    {  
-        //This file system module allows to work with the file system on computer.
-        var fs = require('fs');
-        //reading the data from the text file and storing in a variable data
-        var data = fs.readFileSync('regExp.txt','utf8');
-        //replacing the vaules with user inputs
-        data=data.replace(/<<name>>/g,name);
-        data=data.replace(/<<fullname>>/g,fullname);
-        data=data.replace(/xxxxxxxxxx/g,number);
-        data=data.replace("xx/xx/xxxx",pre_Date);
-        console.log(data);
-        //After reading the values again storing the replaced values in text file using writeFileSync
-        fs.writeFileSync("reg_Exp",data);
-    },
-
-    stock : function(obj)
-    {   
-        //creating the object for stock 
-        var stock=obj.stock;
-        //For every value of stock loop will execute
-        for(var key in stock)
-        {
-             console.log("\n");
-             console.log(stock[key]);
-             console.log("The total price of "+ stock[key].stockname+ " is "+stock[key].no_of_shares*stock[key].shareprice);
-        }
-        //creating tha variable to store total price of all stock values
-        var stock1=0;
-         for(var key in stock)
-         {
-           stock1=parseInt(stock1)+parseInt(stock[key].no_of_shares*stock[key].shareprice);
-         }
-          console.log("the total price of all the three stocks are: "+(stock1));
-    },
-
-    inventManage : function(nooftimes,readlineSync)
-    {
-        //This file system module allows to work with the file system on computer.
-        var fs=require('fs');
-        // adding the utility folder to call the function
-        var data = fs.readFileSync('inventManagement.json');
-        //converting the data from string to object
-        var inventObject=JSON.parse(data);
-        // loop is initialized to read the stock values as no of times
-        for(i=1;i<=nooftimes;i++)
-        {
-           var name=readlineSync.question("Enter the name of stock: ");
-           var share=readlineSync.question("Enter the number of shares you want: ");
-           var shareprice=readlineSync.question("Enter each price of share: ");
-           inventObject.stock.push({
-               sharename :name,
-               noofshares:share,
-               price     :shareprice
-           })
-           console.log(inventObject);
-           //user given input is writing into a file
-           fs.writeFileSync('inventManagement.json',JSON.stringify(inventObject));
-           var stock=inventObject.stock;
-           //for evary stock printing the total price
-           for(var key in stock)
-           {
-               //console.log(stock[key]);
-               console.log("The totalprice of stock is: "+stock[key].noofshares*stock[key].price);
-           }
-         }
-        
-
-    },
-
-    deck2d : function()
-    {
-        //creating an array with suit and rank
-        var suit=["clubs","diamonds","hearts","spades"];
-        var rank=["2","3","4","5","6","7","8","9","10","jack","queen","king","ace"];
-        //creating a variable to store no of cards
-        var n=suit.length*rank.length;
-        // creating the array to store the deck of cards
-        var deck=new Array();
-        //to display suit and rank of cards
-        for(var i=0;i<suit.length;i++)
-        {
-           for(var j=0;j<rank.length;j++)
-            {
-              var temp="";
-              deck.push(temp+rank[j]+" "+suit[i]);  
-              //deck[suit.length*i+j]=rank[j]+"of"+(suit[i]);
-            }
-        }
-        //shuffling the deck of cards
-        for(var i=0;i<n;i++)
-        {
-           var r=i+parseInt(Math.random()*(n-i));
-           var temp=deck[r];
-           deck[r]=deck[i];
-           deck[i]=temp;
-           //console.log(deck[r],deck[i]);
-        }
-        // distributing the deck of cards to 4 players
-         var x=0,y=9;
-         var arr1=[];
-         var arr2=[];
-         //loop is initialized that for every player receives 9 cards from the deck
-         for(var i=0;i<4;i++)
-          {
-             for(var j=x;j<y;j++)
-             {
-                 //pushing each deck of nine cards into array
-                 arr1.push(deck[j]);
-             }
-          //console.log("the nine cards distributed are: ")
-         //console.log(arr1);
-          x=x+9;
-          y=y+9;
-          //splicing will done for every arraylength
-          while(arr1.length)
-          {
-              arr2.push(arr1.splice(0,10));
-          }
-        }
-          console.log("The cards distributed to four players are : ");
-        console.log(arr2);
-    },
-   Mysort: function(letters){
-    {
-        return function(a, b) {
-            var indexA =letters.indexOf(a[0]),
-            indexB = letters.indexOf(b[0]);
-    
-            if (indexA == indexB) {
-                // same first character, sort regular
-                if (a < b) {
-                    return -1;
-                } else if (a > b) {
-                    return 1;
-                }
-                return 0;
-            } else {
-                return indexA - indexB;
-            }
-        }
-    }
-
-  },
-deck : function()
+class Node {
+    // constructor
+constructor(element) {
+this.element = element;
+this.next = null
+}
+}
+  // linkedlist class
+class LinkedList 
 {
-  var suit = ["♣", "♦", "♥", "♠"];
-  var rank=["2","3","4","5","6","7","8","9","10","jack","queen","king","ace"];
-  var n=suit.length*rank.length;
-  var deck=new Array();
-  for(var i=0;i<suit.length;i++)
-  {
-      for(var j=0;j<rank.length;j++)
-      {
-        var temp="";
-        deck.push(temp+rank[j]+""+suit[i]);  
-        //deck[suit.length*i+j]=rank[j]+"of"+(suit[i]);
-      }
-  }
-  for(var i=0;i<n;i++)
-  {
-      var r=parseInt(Math.random()*deck.length);
-      var temp=deck[i];
-      deck[i]=deck[r];
-      deck[r]=temp;
-  }
-  var x=0,y=9;
-  var arr2=[];
-  for(var i=0;i<4;i++)
-  {
-    var arr1=[];
-      for(var j=x;j<y;j++)
-      {
-          arr1.push(deck[j]);
-      }
+constructor() 
+{
+this.head = null;
+this.size = 0;
+}
 
-  //var sorting=this.Mysort('A2345678910JKQ');
-  arr1=arr1.sort();
-  console.log(arr1);
-  arr2.push(arr1);
-  x=x+9;
-  y=y+9;
-  }
-//   for(var j=0;j<arr2.length;j++)
-//   {
-//       list.add(arr2[i])
-//       var k=list.printList();
-//   }
-//   console.log("the cards distributed to all players are: "+k);
-//   //console.log(arr1);
-  for(var i=0;i<arr2.length;i++)
-  {
-      queue.enqueue(arr2[i]);
-    var res=queue.printQueue();
-  }
-      console.log("the cards distributed to all the players are: "+res);
-  
-},
+// functions to be implemented
+// add(element)
+// adds an element at the end
+// of list
+add(element) {
+// creates a new node
+var node = new Node(element);
+
+// to store current node
+var current;
+
+// if list is Empty add the
+// element and make it head
+if (this.head == null)
+this.head = node;
+else {
+current = this.head;
+
+// iterate to the end of  the list
+while (current.next) {
+current = current.next;
+}
+
+// add node
+current.next = node;
+}
+this.size++;
+}
+
+
+// insert element at the position index
+// of the list
+insertAt(element, index) {
+if (index > 0 && index > this.size)
+return false;
+else {
+                  // creates a new node
+var node = new Node(element);
+var curr, prev;
+
+curr = this.head;
+
+// add the element to the first index
+if (index == 0) {
+node.next = head;
+this.head = node;
+} else {
+curr = this.head;
+var it = 0;
+
+// iterate over the list to find
+// the position to insert
+while (it < index) {
+it++;
+prev = curr;
+curr = curr.next;
+}
+
+// adding an element
+node.next = curr;
+prev.next = node;
+}
+this.size++;
+}
+}
+// insertAt(element, location)
+// removeFrom(location)
+
+// removes an element from the
+// specified location
+removeFrom(index) {
+if (index > 0 && index > this.size)
+return -1;
+else {
+var curr, prev, it = 0;
+curr = this.head;
+prev = curr;
+
+// deleting first element
+if (index == 0) {
+this.head = curr.next;
+}
+else {
+// iterate over the list to the position to remove an element
+while (it < index) {
+it++;
+prev = curr;
+curr = curr.next;
+}
+
+// remove the element
+prev.next = curr.next;
+}
+this.size--;
+
+// return the remove element
+return curr.element;
+}
+}
+// removes a given element from the list
+removeElement(element) {
+var current = this.head;
+var prev = null;
+
+                   // iterate over the list
+while (current != null) {
+// comparing element with current element if found then remove the & return true
+if (current.element === element) {
+if (prev == null) {
+this.head = current.next;
+} else {
+prev.next = current.next;
+}
+this.size--;
+return current.element;
+}
+prev = current;
+current = current.next;
+}
+return -1;
+}
+
+// finds the index of element
+indexOf(element) {
+var count = 0;
+var current = this.head;
+
+// iterate over the list
+while (current != null) {
+// compare each element of the list with given element
+if (current.element == element)
+return count;
+count++;
+current = current.next;
+}
+
+// not found
+return -1;
+}
+
+isEmpty()
+{                   
+//it returns true if the ;list is empty,otherwise it returns false
+return this.size == 0;
+}
+
+// removeElement(element)
+
+size_of_list() {                 
+//it gives the size of the list
+console.log(this.size);
+}
+printList() {                       
+//it prints all the elements present in the list
+var curr = this.head;
+var str = "";
+while (curr) {
+str += curr.element + " ";
+curr = curr.next;
+}
+console.log(str);
+}
+printList1() {
+var curr = this.head;
+var str = "";
+while (curr) {
+str += curr.element + " ";
+curr = curr.next;
+}
+return str;
+}
+GetElement(index) {    
+ //it is used to get the element present in a particular index
+var current = this.head;
+var count = 0;
+ // index of Node we are currently looking at 
+while (current != null) {
+if (count == index)
+return current.element;
+count++;
+current = current.next;
+}
+
+//if we get to this line, the caller was asking 
+//for a non-existent element so we assert fail 
+
+return 0;
+} 
+insertSort(element)
+{
+
+var node = new Node(element);
+
+/* Special case for head node */
+if (this.head == null || this.head.element >= node.element) 
+{
+node.next = this.head;
+this.head = node;
+}
+else 
+{
+/* Locate the node before point of insertion. */
+var current = this.head;
+
+while (current.next != null &&
+current.next.element < node.element)
+current = current.next;
+
+//  console.log(current.next.element);
+node.next = current.next;
+current.next = node;
+}
+
 }
 
 
 
+}
 
 
+module.exports = LinkedList
 
-
-
-
-
-                                      
-                                                               
-
-
-
-
-
-                                                                                                                                                                                                                                  

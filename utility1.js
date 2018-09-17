@@ -1,43 +1,46 @@
 
-    module.exports = class stack {
-        constructor() 
-    {
-        this.braces = [];
+    class Node {
+      constructor(e,n) {
+         this.ele=e;
+         this.next=n;
+      }
+  }
+  module.exports=class stack{
+      constructor(){
+          this.count=0;
+          this.first=null;
+  
+      }
+      push(ele){
+          this.first=new Node(ele,this.first)
+          //console.log("add method "+this.first.ele)
+          this.count++;   
+       }
+      printstack(){
+          
+           // var current = this.first;
+          var str = " ";
+          while (this.first) {
+              str += this.first.ele + " ";
+              this.first = this.first.next;
+          }
+          return str;
+      }
+      pop(){
+          
+          var n=this.first;
+          if(n){
+         this.first=n.next;
+          this.count--;
+          }
+         else{
+             this.count++;
+         }
     }
-    push(element)
-    {
-    // push element into the items
-    this.braces.push(element);
-    }
-    pop()
-    {
-    // return top most element in the stack
-    // and removes it from the stack
-    // Underflow if stack is empty
-    if (this.braces.length == 0)
-        return "Underflow";
-    return this.braces.pop();
-    }
-    peek()
-    {
-    // return the top most element from the stack
-    // but does'nt delete it.
-    return this.braces[this.braces.length - 1];
-    }
-    // isEmpty function
-    isEmpty()
-    {
-    // return true if stack is empty
-    return this.braces.length == 0;
-    }
-    printStack()
-    {
-    var str = "";
-    for (var i = 0; i < this.braces.length; i++)
-        str += this.braces[i] + " ";
-    return str;
-    }
+      isEmpty()
+      {
+          //console.log("this.count is "+this.count)
+          return this.count==0;
+      }
+  }
 
-
-}
-    
