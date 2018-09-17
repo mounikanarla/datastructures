@@ -1,25 +1,24 @@
+/**********************************************************************************************
+ *  Execution       :   1. default node         cmd> inventory.js       
+ *  @purpose        : Create a JSON file having Inventory Details for Rice, Pulses and Wheats
+                      with properties name, weight, price per kg.
+ *  @author         : mounika<nmounika358@gmail.com>
+ *  @version        : 10.9.0
+ *  @since          : 11-09-2018
+ *
+ ***********************************************************************************************/
+
+//This file system module allows to work with the file system on computer.
 var fs = require('fs');
+// adding the utility folder to call the function
+var utility=require('/home/bridgeit/datastructures/main/oops/utility.js/utility.js');
+// to read the file from JSON and stored in a variable data
 var data = fs.readFileSync('inventory.json');
+//converting the string into object
 var obj=JSON.parse(data);
-//console.log(obj);
-var rice=obj.rice;
-var wheat=obj.wheat;
-var pulses=obj.pulses;
-for(var key in rice)
+function inventory()
 {
-    console.log("\n");
-    console.log(rice[key]);
-    console.log("The total price of "+ rice[key].Ricename+ " is "+rice[key].weight*rice[key].price);
+    utility.inventory(obj);
 }
-for(var key in wheat)
-{
-    console.log("\n");
-    console.log(wheat[key]);
-    console.log("The total price of "+ wheat[key].wheatname+ " is "+wheat[key].weight*wheat[key].price);
-}
-for(var key in pulses)
-{
-    console.log("\n");
-    console.log(pulses[key]);
-    console.log("The total price of "+ pulses[key].pulsename+ " is "+pulses[key].weight*pulses[key].price);
-}
+inventory();
+
